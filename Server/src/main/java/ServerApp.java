@@ -3,6 +3,9 @@ import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Connection;
 
+import java.awt.EventQueue; 
+import javax.swing.*;
+import java.awt.*;
 /**
  * Server
  *
