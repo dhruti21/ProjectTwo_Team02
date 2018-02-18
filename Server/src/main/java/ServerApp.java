@@ -36,6 +36,17 @@ public class ServerApp {
                 }
             }
         });
+        
+        EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ServerInterface window = new ServerInterface();
+					window.frmServer.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 
     }
 }
