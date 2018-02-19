@@ -14,5 +14,5 @@ Windows: [Maven Windows Guide](https://maven.apache.org/guides/getting-started/w
 ### 3. Run The JAR
 #### Server
 `java -jar Server/target/Server-1.0-SNAPSHOT-jar-with-dependencies.jar `
-#### Client
+#### Client (Have to run server first)
 `java -jar Client/target/Client-1.0-SNAPSHOT-jar-with-dependencies.jar` 
