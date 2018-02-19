@@ -17,18 +17,23 @@ public class ClientApp {
     public static final String IP = "localhost";
     public static final int PORT = 3000;
 
-    public static void main( String[] args ) throws IOException {
-        Client client = new Client();
-        client.start();
-        client.connect(5000, IP, PORT);
+    private static final int CONNECTION_TIMEOUT = 5000;
 
-        Network.register( client );
+    private static Client ClientConnection;
+    private static ClientInterface clientInterface;
+
+    private static void connectToServer() throws IOException {
+        ClientConnection = new Client();
+        ClientConnection.start();
+        ClientConnection.connect(CONNECTION_TIMEOUT, IP, PORT);
+
+        Network.register(ClientConnection);
 
         Message request = new Message();
         request.text = "Message from client";
-        client.sendTCP(request);
+        ClientConnection.sendTCP(request);
 
-        client.addListener(new Listener() {
+        ClientConnection.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof Message) {
                     Message response = (Message)object;
@@ -36,8 +41,27 @@ public class ClientApp {
                 }
             }
         });
-
-        // TODO - Remove when UI is added.
-        while(true){}
     }
+
+    public static void main(String[] args) {
+
+        //Connect to Server
+        try {
+            connectToServer();
+        } catch (IOException e) {
+            System.err.println(e.toString());
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+
+        //Start Client UI
+        try {
+            clientInterface = new ClientInterface();
+            clientInterface.setVisible(true);
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+
+    }
+
 }
