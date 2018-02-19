@@ -111,4 +111,8 @@ public class ServerInterface {
 		btnNewButton.setBounds(315, 11, 107, 23);
 		frmServer.getContentPane().add(btnNewButton);
 	}
+
+	public JFrame getFrmServer() {
+		return frmServer;
+	}
 }

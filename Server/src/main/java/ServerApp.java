@@ -3,9 +3,6 @@ import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Connection;
 
-import java.awt.EventQueue; 
-import javax.swing.*;
-import java.awt.*;
 /**
  * Server
  *
@@ -17,11 +14,11 @@ import java.awt.*;
  */
 public class ServerApp {
 
+    public Server server;
     public static final int PORT = 3000;
 
-    public static void main( String[] args ) throws IOException {
-
-        Server server = new Server();
+    private void startServer() throws IOException{
+        server = new Server();
         server.start();
         server.bind( PORT );
 
@@ -39,17 +36,21 @@ public class ServerApp {
                 }
             }
         });
-        
-        EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ServerInterface window = new ServerInterface();
-					window.frmServer.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
     }
+
+    public static void main( String[] args ) {
+
+        try {
+            ServerApp serverApp = new ServerApp();
+            serverApp.startServer();
+            ServerInterface window = new ServerInterface();
+            window.getFrmServer().setVisible(true);
+        } catch (IOException e){
+            System.out.println("Error creating server");
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
