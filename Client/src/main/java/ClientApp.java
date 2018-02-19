@@ -21,6 +21,7 @@ public class ClientApp {
 
     private static Client ClientConnection;
     private static ClientInterface clientInterface;
+    private static ClientStatsManager statsMgr;
 
     private static void connectToServer() throws IOException {
         ClientConnection = new Client();
@@ -33,11 +34,17 @@ public class ClientApp {
         request.text = "Message from client";
         ClientConnection.sendTCP(request);
 
+        statsMgr = new ClientStatsManager();
+        statsMgr.init();
+
         ClientConnection.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof Message) {
                     Message response = (Message)object;
                     System.out.println(response.text);
+                    
+                    // TODO:parsing data
+                    // statsMgr.OnReceiveData(channel, data);
                 }
             }
         });
