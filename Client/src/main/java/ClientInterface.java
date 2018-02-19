@@ -1,3 +1,5 @@
+import org.jfree.chart.ChartPanel;
+
 import javax.swing.JFrame;
 
 /**
@@ -10,7 +12,6 @@ public class ClientInterface extends JFrame {
 
     /**
      * Constructor of class ClientInterface
-     * Will add all components here
      */
     public ClientInterface() {
         super();
@@ -21,8 +22,11 @@ public class ClientInterface extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //TODO: Other Client UI Components
-    }
+        //TODO: Set Good Layout of Client UI
 
-    ;
+        //Plotting panel
+        ChartPanel chartPanel = new ClientPlotPanel().getChartPanel();
+        setContentPane(chartPanel);
+    }
 
 }
