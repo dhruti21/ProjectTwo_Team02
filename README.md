@@ -5,11 +5,11 @@
 ### 1. Install Maven
 Debian Linux: `sudo apt-get install maven`\
 Mac: `brew install maven`\
-Windows `???`
+Windows: [Maven Windows Guide](https://maven.apache.org/guides/getting-started/windows-prerequisites.html) or use IDE import whole project.
 
 ### 2. Build Project
 
-`mvn clean package`
+`cd` to your project directory then run: `mvn clean package`
 
 ### 3. Run The JAR
 #### Server
