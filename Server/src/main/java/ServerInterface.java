@@ -50,31 +50,42 @@ public class ServerInterface {
 		frmServer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmServer.getContentPane().setLayout(null);
 		
+		Color lightblue = new Color(153,180,209);
+		Border border = BorderFactory.createLineBorder(lightblue);
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 41, 412, 196);
+		panel.setBackground(new Color(220, 220, 220));
+		panel.setBounds(10, 41, 392, 196);
 		frmServer.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(SystemColor.activeCaption));
+		panel_2.setBackground(new Color(250, 235, 215));
 		panel_2.setBounds(10, 11, 239, 163);
 		panel.add(panel_2);
 		
 		textField_3 = new JTextField();
+		textField_3.setBackground(new Color(250, 235, 215));
 		textField_3.setBounds(328, 91, 74, 38);
 		textField_3.setColumns(10);
 		panel.add(textField_3);
 		
 		textField_4 = new JTextField();
+		textField_4.setBackground(SystemColor.controlHighlight);
 		textField_4.setBounds(328, 52, 74, 38);
 		textField_4.setColumns(10);
 		panel.add(textField_4);
 		
 		textField_5 = new JTextField();
+		textField_5.setBackground(new Color(250, 235, 215));
 		textField_5.setBounds(328, 11, 74, 38);
 		textField_5.setColumns(10);
 		panel.add(textField_5);
 		
 		JTextArea txtrHighestValue = new JTextArea();
+		txtrHighestValue.setBackground(SystemColor.controlHighlight);
+		txtrHighestValue.setBorder(border);
 		txtrHighestValue.setLineWrap(true);
 		txtrHighestValue.setWrapStyleWord(true);
 		txtrHighestValue.setText("Highest value:");
@@ -82,6 +93,8 @@ public class ServerInterface {
 		panel.add(txtrHighestValue);
 		
 		JTextArea txtrLowestValue = new JTextArea();
+		txtrLowestValue.setBackground(new Color(250, 235, 215));
+		txtrLowestValue.setBorder(border);
 		txtrLowestValue.setLineWrap(true);
 		txtrLowestValue.setWrapStyleWord(true);
 		txtrLowestValue.setText("Lowest value:");
@@ -89,6 +102,8 @@ public class ServerInterface {
 		panel.add(txtrLowestValue);
 		
 		JTextArea txtrFrequency = new JTextArea();
+		txtrFrequency.setBackground(SystemColor.controlHighlight);
+		txtrFrequency.setBorder(border);
 		txtrFrequency.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		txtrFrequency.setLineWrap(true);
 		txtrFrequency.setWrapStyleWord(true);
@@ -97,6 +112,8 @@ public class ServerInterface {
 		panel.add(txtrFrequency);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(SystemColor.activeCaption));
+		panel_1.setBackground(new Color(220, 220, 220));
 		panel_1.setBounds(10, 248, 412, 44);
 		frmServer.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
