@@ -1,13 +1,8 @@
-import java.awt.EventQueue;
+import java.awt.*;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 
 public class ServerInterface {
 
@@ -16,22 +11,6 @@ public class ServerInterface {
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JLabel lblNewLabel_1;
-
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ServerInterface window = new ServerInterface();
-					window.frmServer.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	/**
 	 * Create the application.
@@ -111,17 +90,21 @@ public class ServerInterface {
 		txtrFrequency.setBounds(252, 92, 73, 38);
 		panel.add(txtrFrequency);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new LineBorder(SystemColor.activeCaption));
-		panel_1.setBackground(new Color(220, 220, 220));
-		panel_1.setBounds(10, 248, 412, 44);
-		frmServer.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+		JPanel consolePanel = new JPanel();
+        consolePanel.setBorder(new LineBorder(SystemColor.activeCaption));
+        consolePanel.setBackground(new Color(220, 220, 220));
+        consolePanel.setBounds(10, 248, 412, 80);
+		frmServer.getContentPane().add(consolePanel);
+        consolePanel.setLayout(null);
 		
 		lblNewLabel_1 = new JLabel(" Console:");
 		lblNewLabel_1.setFont(new Font("Monospaced", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(0, 0, 81, 22);
-		panel_1.add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(0, 0, 81, 15);
+        consolePanel.add(lblNewLabel_1);
+
+        JPanel consoleText = new ServerConsole();
+        consoleText.setBounds(10, 15, 400, 60);
+        consolePanel.add(consoleText);
 		
 		JButton btnNewButton = new JButton("Start / Stop");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));

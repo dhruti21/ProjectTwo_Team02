@@ -41,10 +41,10 @@ public class ServerApp {
     public static void main( String[] args ) {
 
         try {
-            ServerApp serverApp = new ServerApp();
-            serverApp.startServer();
             ServerInterface window = new ServerInterface();
             window.getFrmServer().setVisible(true);
+            ServerApp serverApp = new ServerApp();
+            serverApp.startServer();
         } catch (IOException e){
             System.out.println("Error creating server");
             e.printStackTrace();
