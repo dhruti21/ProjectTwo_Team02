@@ -1,7 +1,6 @@
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -21,15 +20,20 @@ public class ClientPlotPanel {
 
     private static ChartPanel chartPanel;
 
+    private static DefaultCategoryDataset dataset;
+
     /**
      * Constructor
      */
     ClientPlotPanel(){
+        //Create new dataset
+        dataset = new DefaultCategoryDataset();
+
         //Create Line Chart
         JFreeChart lineChart = ChartFactory.createLineChart(
           "test",
           "Time", "Value",
-           createDataset(),
+           dataset,
            PlotOrientation.VERTICAL,
            true,
            true,
@@ -43,6 +47,7 @@ public class ClientPlotPanel {
     /**
      * Create a temporary dataset to test the functionality of plot panel.
      */
+    /*
     private DefaultCategoryDataset createDataset(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
@@ -61,6 +66,24 @@ public class ClientPlotPanel {
         }
 
         return dataset;
+    }*/
+
+    /**
+     * Every time we get data from server, should call this method to add channel data inside dataset.
+     *
+     * @param
+     *       Date date: time when client recieved data.
+     *       int channelNumber: channel number of current data.
+     *       int value: data value
+     * @see Date
+     */
+    public void addData(Date date, int channelNumber, int value){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
+
+        dataset.addValue(value, "Ch " + channelNumber, sdf.format(date));
+
+        System.out.println("" + sdf.format(date) + " Ch: " + channelNumber + " Value: " + value);
     }
 
     /**
@@ -70,4 +93,5 @@ public class ClientPlotPanel {
     public ChartPanel getChartPanel(){
         return chartPanel;
     }
+
 }
