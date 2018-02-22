@@ -10,11 +10,6 @@ public class ClientLowestStats implements StatsInterface {
     private HashMap<Integer, Integer> mHash = new HashMap<Integer, Integer>();
 
 	@Override
-	public void init() {
-		
-	}
-
-	@Override
 	public void onReceiveData(int channel, int data) {
         int cur = getStats(channel);
         cur = Math.min(cur, data);

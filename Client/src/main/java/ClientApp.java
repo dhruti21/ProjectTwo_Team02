@@ -19,7 +19,7 @@ public class ClientApp {
 
     public static final String IP = "localhost";
     public static final int PORT = 3000;
-    public static final int DEFAULT_CHANNEL_NUM = 1;
+    public static final int DEFAULT_CHANNEL_NUM = 3;
 
     private static final int CONNECTION_TIMEOUT = 5000;
 
@@ -33,8 +33,9 @@ public class ClientApp {
     public void init() {
         try {
             mCurChannel = 1;
-            mClientInterface = new ClientInterface();
+            mClientInterface = new ClientInterface(DEFAULT_CHANNEL_NUM);
             mClientInterface.getFromClient().setVisible(true);
+            addChannelChangeListener();
             connectToServer();
         } catch (IOException e) {
             System.err.println(e.toString());
@@ -71,15 +72,30 @@ public class ClientApp {
                         System.out.println( "Channel: " + channel + ", Data: " + data );
                         mStatsMgr.onReceiveData(channel, data);
                     }
-                    mClientInterface.updateStats(mCurChannel, mStatsMgr);
+                    UpdateInterfaceStats();
                 }
             }
         });
+    }
+
+    private void addChannelChangeListener() {
+        mClientInterface.setChannelChangeListener(new ClientInterface.ChannelChangeListerner(){
+            @Override
+            public void onChannelChange(int channel) {
+                mCurChannel = channel;
+                UpdateInterfaceStats();
+            }
+        });
+    }
+
+    private void UpdateInterfaceStats() {
+        mClientInterface.setAverageValue(mStatsMgr.getAverageValue(mCurChannel));
+        mClientInterface.setLowestValue(mStatsMgr.getLowestValue(mCurChannel));
+        mClientInterface.setHighestValue(mStatsMgr.getHighestValue(mCurChannel));
     }
 
     public static void main(String[] args) {
         sApp = new ClientApp();
         sApp.init();
     }
-
 }

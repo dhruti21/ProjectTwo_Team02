@@ -7,18 +7,13 @@ import java.util.HashMap;
  * @author Team 2
  * @version 1.0
  */
-public class ClientAverageStats implements StatsInterface {
-	private HashMap<Integer, InnerData> mHash = new HashMap<Integer, InnerData>();
-	
+public class ClientAverageStats implements StatsInterface {	
 	private class InnerData {
 		int sum = 0;
 		int num = 0;
 	}
 
-	@Override
-	public void init() {
-		
-	}
+	private HashMap<Integer, InnerData> mHash = new HashMap<Integer, InnerData>();
 
 	@Override
 	public void onReceiveData(int channel, int data) {

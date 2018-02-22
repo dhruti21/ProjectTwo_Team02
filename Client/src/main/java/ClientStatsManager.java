@@ -22,10 +22,6 @@ public class ClientStatsManager {
         mStatsList.add(mHighest);
         mStatsList.add(mLowest);
         mStatsList.add(mAverage);
-
-        for (StatsInterface i : mStatsList) {
-            i.init();
-        }
     }
     
     public void onReceiveData(int channel, int data) {
