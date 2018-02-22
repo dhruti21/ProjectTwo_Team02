@@ -21,24 +21,38 @@ public class ClientApp {
 
     private static final int CONNECTION_TIMEOUT = 5000;
 
-    private static Client ClientConnection;
-    private static ClientInterface clientInterface;
-    private static ClientStatsManager statsMgr;
+    private static ClientApp sApp;
 
-    private static void connectToServer() throws IOException {
-        ClientConnection = new Client();
-        ClientConnection.start();
-        ClientConnection.connect(CONNECTION_TIMEOUT, IP, PORT);
+    private  Client mClientConnection;
+    private  ClientInterface mClientInterface;
+    private  ClientStatsManager mStatsMgr;
 
-        Network.register(ClientConnection);
+    public void init() {
+        try {
+            connectToServer();
+            mClientInterface = new ClientInterface();
+            mClientInterface.setVisible(true);
+        } catch (IOException e) {
+            System.err.println(e.toString());
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
+
+    private void connectToServer() throws IOException {
+        mClientConnection = new Client();
+        mClientConnection.start();
+        mClientConnection.connect(CONNECTION_TIMEOUT, IP, PORT);
+
+        Network.register(mClientConnection);
 
         ConnectionOpen newConnection = new ConnectionOpen( DEFAULT_CHANNEL_NUM );
-        ClientConnection.sendTCP( newConnection );
+        mClientConnection.sendTCP( newConnection );
 
-        statsMgr = new ClientStatsManager();
-        statsMgr.init();
+        mStatsMgr = new ClientStatsManager();
+        mStatsMgr.init();
 
-        ClientConnection.addListener(new Listener() {
+        mClientConnection.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof Frequency) {
                     int frequency = ((Frequency) object ).getFrequency();
@@ -51,7 +65,7 @@ public class ClientApp {
                         int channel = channelNum.getChannel();
                         int data = channelNum.getNumber();
                         System.out.println( "Channel: " + channel + ", Data: " + data );
-                        statsMgr.OnReceiveData(channel, data);
+                        mStatsMgr.onReceiveData(channel, data);
                     }
                 }
             }
@@ -59,17 +73,8 @@ public class ClientApp {
     }
 
     public static void main(String[] args) {
-
-
-        try {
-            connectToServer();
-            clientInterface = new ClientInterface();
-            clientInterface.setVisible(true);
-        } catch (IOException e) {
-            System.err.println(e.toString());
-        } catch (Exception e) {
-            System.err.println(e.toString());
-        }
+        sApp = new ClientApp();
+        sApp.init();
     }
 
 }

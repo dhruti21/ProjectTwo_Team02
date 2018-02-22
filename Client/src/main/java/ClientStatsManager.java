@@ -18,7 +18,7 @@ public class ClientStatsManager {
         mStatsList.add(mHighest);
     }
     
-    public void OnReceiveData(int channel, int data) {
+    public void onReceiveData(int channel, int data) {
         for (StatsInterface i : mStatsList) {
             i.onReceiveData(channel, data);
         }
