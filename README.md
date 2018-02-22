@@ -1,6 +1,12 @@
 # ProjectTwo_Team02
 
-## Steps To Run
+## GRADER - Steps To Run
+
+### Run the JAR
+
+TBD - Compiled JAR needs to be c/p to root.
+
+## DEVELOPMENT TEAM - Steps To Run
 
 ### 1. Install Maven
 Debian Linux: `sudo apt-get install maven`\
