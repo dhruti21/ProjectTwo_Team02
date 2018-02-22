@@ -30,8 +30,11 @@ public class ClientAverageStats implements StatsInterface {
 	@Override
 	public int getStats(int channel) {
 		InnerData d = getData(channel);
-		int average = d.sum / d.num;
-        return average;
+		if (d.num == 0) {
+			return 0;
+		} else {
+			return d.sum / d.num;
+		}
 	}
 
 	private InnerData getData(int channel) {
