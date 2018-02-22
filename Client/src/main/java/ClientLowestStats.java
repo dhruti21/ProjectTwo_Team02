@@ -7,20 +7,20 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class ClientLowestStats implements StatsInterface {
-    private HashMap<Integer, Integer> mHash = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
 
 	@Override
 	public void onReceiveData(int channel, int data) {
         int cur = getStats(channel);
         cur = Math.min(cur, data);
-        mHash.put(channel, cur);
+        hash.put(channel, cur);
 	}
 
 	@Override
 	public int getStats(int channel) {
-		if (!mHash.containsKey(channel)) {
-            mHash.put(channel, Integer.MAX_VALUE);
+		if (!hash.containsKey(channel)) {
+            hash.put(channel, Integer.MAX_VALUE);
         }
-        return mHash.get(channel);
+        return hash.get(channel);
 	}
 }
