@@ -24,7 +24,7 @@ public class ClientApp {
     private static ClientApp sApp;
 
     private  Client mClientConnection;
-    private  ClientInterface mClientInterface;
+    private ClientInterface mClientInterface;
     private  ClientStatsManager mStatsMgr;
 
     public void init() {
