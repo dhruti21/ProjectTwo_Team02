@@ -3,6 +3,8 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Connection;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.management.loading.MLetContent;
 
@@ -77,6 +79,10 @@ public class ClientApp {
                         int channel = channelNum.getChannel();
                         int data = channelNum.getNumber();
                         System.out.println( "Channel: " + channel + ", Data: " + data );
+                        //Get current time
+                        Date cal = Calendar.getInstance().getTime();
+                        //Add data into plot dataset
+                        clientInterface.getClientPlotPanel().addData(cal, channel, data);
                         statsMgr.onReceiveData(channel, data);
                     }
                     UpdateInterfaceStats();

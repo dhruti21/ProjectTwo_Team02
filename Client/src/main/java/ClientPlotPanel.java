@@ -45,30 +45,6 @@ public class ClientPlotPanel {
     }
 
     /**
-     * Create a temporary dataset to test the functionality of plot panel.
-     */
-    /*
-    private DefaultCategoryDataset createDataset(){
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        //Randomly generate 20 test data
-        //Generate current time
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
-
-        Random rand = new Random();
-
-        for(int i = 0; i < 20; i++){
-            //Add 1s for each value's time
-            cal.add(Calendar.SECOND, 5);
-            //Generate a random value
-            dataset.addValue(rand.nextInt(200) + 1, "Channel 1", String.valueOf(sdf.format(cal.getTime())));
-        }
-
-        return dataset;
-    }*/
-
-    /**
      * Every time we get data from server, should call this method to add channel data inside dataset.
      *
      * @param
@@ -80,10 +56,8 @@ public class ClientPlotPanel {
     public void addData(Date date, int channelNumber, int value){
 
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
-
         dataset.addValue(value, "Ch " + channelNumber, sdf.format(date));
-
-        System.out.println("" + sdf.format(date) + " Ch: " + channelNumber + " Value: " + value);
+        //System.out.println("" + sdf.format(date) + " Ch: " + channelNumber + " Value: " + value);
     }
 
     /**

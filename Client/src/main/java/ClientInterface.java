@@ -52,6 +52,9 @@ public class ClientInterface {
     private javax.swing.JPanel GraphPanel;
     private ChannelChangeListerner mChannelListerner;
 
+    //Plot panel
+    private static ClientPlotPanel clientPlotPanel;
+
     /**
      * Create the application.
      */
@@ -85,8 +88,6 @@ public class ClientInterface {
 
     private void initcomponents(int numChannel) {
 
-        //setContentPane(chartPanel);
-       // handler = ClientStatsManager.getInstance();
         fromClient = new JFrame();
         fromClient.setTitle("Client");
         fromClient.setBounds(100, 100, 448, 342);
@@ -223,8 +224,8 @@ public class ClientInterface {
         GraphPanel.setBackground(Color.pink);
         GraphPanel.setBounds(10, 11, 239, 200);
         panel.add(GraphPanel);
-        ChartPanel chartPanel = new ClientPlotPanel().getChartPanel();
-        GraphPanel.add(chartPanel, BorderLayout.CENTER);
+        clientPlotPanel = new ClientPlotPanel();
+        GraphPanel.add(clientPlotPanel.getChartPanel(), BorderLayout.CENTER);
         GraphPanel.validate();
 
         JPanel consolePanel = new JPanel();
@@ -246,5 +247,9 @@ public class ClientInterface {
         if (mChannelListerner != null) {
             mChannelListerner.onChannelChange(chosenchannel);
         }
+    }
+
+    public ClientPlotPanel getClientPlotPanel(){
+        return clientPlotPanel;
     }
 }
