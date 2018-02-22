@@ -12,13 +12,20 @@ public class ClientStatsManager {
     private ArrayList<StatsInterface> mStatsList;
     private ClientHighestStats mHighest;
     private ClientLowestStats mLowest;
+    private ClientAverageStats mAverage;
 
     public void init() {
         mStatsList = new ArrayList<StatsInterface>();
         mHighest = new ClientHighestStats();
         mLowest = new ClientLowestStats();
+        mAverage = new ClientAverageStats();
         mStatsList.add(mHighest);
         mStatsList.add(mLowest);
+        mStatsList.add(mAverage);
+
+        for (StatsInterface i : mStatsList) {
+            i.init();
+        }
     }
     
     public void onReceiveData(int channel, int data) {
@@ -33,5 +40,9 @@ public class ClientStatsManager {
 
     public int getLowestValue(int channel) {
         return mLowest.getStats(channel);
+    }
+
+    public int getAverageValue(int channel) {
+        return mAverage.getStats(channel);
     }
 }
