@@ -27,6 +27,10 @@ import javax.swing.border.LineBorder;
 
 public class ClientInterface {
 
+    public interface ChannelChangeListerner {
+        public void onChannelChange(int channel);
+    }
+
     public final int STATUS_SIZE = 100;
     public final Color STATUS_OK = Color.GREEN;
     public final Color STATUS_NOT_OK = Color.RED;
@@ -46,19 +50,40 @@ public class ClientInterface {
     private javax.swing.JLabel AverageTextInput;
     private javax.swing.JPanel Panelwithbutton;
     private javax.swing.JPanel GraphPanel;
-   // private int chosenchannel = 3;
+    private ChannelChangeListerner mChannelListerner;
+
     /**
      * Create the application.
      */
-    public ClientInterface() {
-        initcomponents();
+    public ClientInterface(int numChannel) {
+        initcomponents(numChannel);
     }
 
     public JFrame getFromClient() {
         return fromClient;
     }
 
-    public void initcomponents() {
+    public void setAverageValue(int val) {
+        AverageTextInput.setText(Integer.toString(val));
+    }
+
+    public void setLowestValue(int val) {
+        LowestValueInput.setText(Integer.toString(val));
+    }
+
+    public void setHighestValue(int val) {
+        HighestTextInput.setText(Integer.toString(val));
+    }
+
+    public void setFrequency(int val) {
+        FrequencyTextInput.setText(Integer.toString(val));
+    }
+
+    public void setChannelChangeListener(ChannelChangeListerner listerner) {
+        mChannelListerner = listerner;
+    }
+
+    private void initcomponents(int numChannel) {
 
         //setContentPane(chartPanel);
        // handler = ClientStatsManager.getInstance();
@@ -112,14 +137,16 @@ public class ClientInterface {
         Panelwithbutton.setBorder(BorderFactory.createEtchedBorder());
 
         jComboBox1.setBackground(new Color(191, 205, 219));
-        jComboBox1.setModel(new DefaultComboBoxModel(new String[]{"1", "2", "3", "4"}));
+        String[] strChannel = new String[numChannel];
+        for (int i = 1; i <= numChannel; ++i) {
+            strChannel[i - 1] = Integer.toString(i);
+        }
+        jComboBox1.setModel(new DefaultComboBoxModel(strChannel));
         jComboBox1.setOpaque(true);
         jComboBox1.setBounds(328,133,74,38);
         jComboBox1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
-                String chosenselection = (String)jComboBox1.getSelectedItem();
-                 //chosenchannel = Integer.parseInt(chosenselection);
             }
         });
 
@@ -213,32 +240,11 @@ public class ClientInterface {
         consolePanel.add(lblNewLabel_1);
     }
 
-    public void updateStats(int channel, ClientStatsManager mgr) {
-        setAverageValue(mgr.getAverageValue(channel));
-        setLowestValue(mgr.getLowestValue(channel));
-        setHighestValue(mgr.getHighestValue(channel));
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {
+        String chosenselection = (String)jComboBox1.getSelectedItem();
+        int chosenchannel = Integer.parseInt(chosenselection);
+        if (mChannelListerner != null) {
+            mChannelListerner.onChannelChange(chosenchannel);
+        }
     }
-
-    public void setAverageValue(int val) {
-        AverageTextInput.setText(Integer.toString(val));
-    }
-
-    public void setLowestValue(int val) {
-        LowestValueInput.setText(Integer.toString(val));
-    }
-
-    public void setHighestValue(int val) {
-        HighestTextInput.setText(Integer.toString(val));
-    }
-
-    public void setFrequency(int val) {
-        FrequencyTextInput.setText(Integer.toString(val));
-    }
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-
-
 }

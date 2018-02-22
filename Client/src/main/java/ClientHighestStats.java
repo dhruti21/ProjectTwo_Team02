@@ -7,13 +7,8 @@ import java.util.HashMap;
  * @version 1.0
  */
 public class ClientHighestStats implements StatsInterface {
-    private HashMap<Integer, Integer> mHash = new HashMap<Integer, Integer>();
-
-	@Override
-	public void init() {
-		
-	}
-
+	private HashMap<Integer, Integer> mHash = new HashMap<Integer, Integer>();
+	
 	@Override
 	public void onReceiveData(int channel, int data) {
         int cur = getStats(channel);
