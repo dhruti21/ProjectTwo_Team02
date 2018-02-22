@@ -211,15 +211,29 @@ public class ClientInterface {
         lblNewLabel_1.setFont(new Font("Monospaced", Font.PLAIN, 13));
         lblNewLabel_1.setBounds(0, 0, 81, 15);
         consolePanel.add(lblNewLabel_1);
+    }
 
+    public void updateStats(int channel, ClientStatsManager mgr) {
+        setAverageValue(mgr.getAverageValue(channel));
+        setLowestValue(mgr.getLowestValue(channel));
+        setHighestValue(mgr.getHighestValue(channel));
+    }
 
+    public void setAverageValue(int val) {
+        AverageTextInput.setText(Integer.toString(val));
+    }
 
+    public void setLowestValue(int val) {
+        LowestValueInput.setText(Integer.toString(val));
+    }
 
+    public void setHighestValue(int val) {
+        HighestTextInput.setText(Integer.toString(val));
+    }
 
-
-
-}
-
+    public void setFrequency(int val) {
+        FrequencyTextInput.setText(Integer.toString(val));
+    }
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:

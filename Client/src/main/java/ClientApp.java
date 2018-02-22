@@ -4,6 +4,8 @@ import com.esotericsoftware.kryonet.Connection;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.management.loading.MLetContent;
+
 /**
  * Client
  *
@@ -26,12 +28,14 @@ public class ClientApp {
     private  Client mClientConnection;
     private ClientInterface mClientInterface;
     private  ClientStatsManager mStatsMgr;
+    private int mCurChannel;
 
     public void init() {
         try {
-            connectToServer();
+            mCurChannel = 1;
             mClientInterface = new ClientInterface();
             mClientInterface.getFromClient().setVisible(true);
+            connectToServer();
         } catch (IOException e) {
             System.err.println(e.toString());
         } catch (Exception e) {
@@ -57,7 +61,7 @@ public class ClientApp {
                 if (object instanceof Frequency) {
                     int frequency = ((Frequency) object ).getFrequency();
                     System.out.println( "Frequency set to: " + frequency + " Hz" );
-                    // TODO FOR CLIENT TEAM - Save frequency on client side for displaying
+                    mClientInterface.setFrequency(frequency);
 
                 } else if( object instanceof Channels ){
                     ArrayList<ChannelNumber> channelList = ( (Channels) object ).getChannelList();
@@ -67,6 +71,7 @@ public class ClientApp {
                         System.out.println( "Channel: " + channel + ", Data: " + data );
                         mStatsMgr.onReceiveData(channel, data);
                     }
+                    mClientInterface.updateStats(mCurChannel, mStatsMgr);
                 }
             }
         });
