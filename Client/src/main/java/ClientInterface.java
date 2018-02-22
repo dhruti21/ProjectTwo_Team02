@@ -32,16 +32,14 @@ public class ClientInterface extends javax.swing.JFrame {
         //TODO: Set Good Layout of Client UI
 
         //Plotting panel
-       /* ChartPanel chartPanel = new ClientPlotPanel().getChartPanel();
-        setContentPane(chartPanel);*/
+        //ClientPlotPanel clientPlotPanel = new ClientPlotPanel();
+        //setContentPane(clientPlotPanel.getChartPanel());
     }
    
     @Override
     public void setTitle(String title) {
         super.setTitle(title); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
