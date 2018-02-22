@@ -23,18 +23,25 @@ public class ClientApp {
 
     private static final int CONNECTION_TIMEOUT = 5000;
 
-    private static ClientApp sApp;
+    private static ClientApp instance;
 
-    private  Client mClientConnection;
-    private ClientInterface mClientInterface;
-    private  ClientStatsManager mStatsMgr;
-    private int mCurChannel;
+    private  Client clientConnection;
+    private ClientInterface clientInterface;
+    private  ClientStatsManager statsMgr;
+    private int curChannel;
+
+    public static ClientApp getInstance() {
+        if (instance == null) {
+            instance = new ClientApp();
+        }
+        return instance;
+    }
 
     public void init() {
         try {
-            mCurChannel = 1;
-            mClientInterface = new ClientInterface(DEFAULT_CHANNEL_NUM);
-            mClientInterface.getFromClient().setVisible(true);
+            curChannel = 1;
+            clientInterface = new ClientInterface(DEFAULT_CHANNEL_NUM);
+            clientInterface.getFromClient().setVisible(true);
             addChannelChangeListener();
             connectToServer();
         } catch (IOException e) {
@@ -45,24 +52,24 @@ public class ClientApp {
     }
 
     private void connectToServer() throws IOException {
-        mClientConnection = new Client();
-        mClientConnection.start();
-        mClientConnection.connect(CONNECTION_TIMEOUT, IP, PORT);
+        clientConnection = new Client();
+        clientConnection.start();
+        clientConnection.connect(CONNECTION_TIMEOUT, IP, PORT);
 
-        Network.register(mClientConnection);
+        Network.register(clientConnection);
 
         ConnectionOpen newConnection = new ConnectionOpen( DEFAULT_CHANNEL_NUM );
-        mClientConnection.sendTCP( newConnection );
+        clientConnection.sendTCP( newConnection );
 
-        mStatsMgr = new ClientStatsManager();
-        mStatsMgr.init();
+        statsMgr = new ClientStatsManager();
+        statsMgr.init();
 
-        mClientConnection.addListener(new Listener() {
+        clientConnection.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if (object instanceof Frequency) {
                     int frequency = ((Frequency) object ).getFrequency();
                     System.out.println( "Frequency set to: " + frequency + " Hz" );
-                    mClientInterface.setFrequency(frequency);
+                    clientInterface.setFrequency(frequency);
 
                 } else if( object instanceof Channels ){
                     ArrayList<ChannelNumber> channelList = ( (Channels) object ).getChannelList();
@@ -70,7 +77,7 @@ public class ClientApp {
                         int channel = channelNum.getChannel();
                         int data = channelNum.getNumber();
                         System.out.println( "Channel: " + channel + ", Data: " + data );
-                        mStatsMgr.onReceiveData(channel, data);
+                        statsMgr.onReceiveData(channel, data);
                     }
                     UpdateInterfaceStats();
                 }
@@ -79,23 +86,22 @@ public class ClientApp {
     }
 
     private void addChannelChangeListener() {
-        mClientInterface.setChannelChangeListener(new ClientInterface.ChannelChangeListerner(){
+        clientInterface.setChannelChangeListener(new ClientInterface.ChannelChangeListerner(){
             @Override
             public void onChannelChange(int channel) {
-                mCurChannel = channel;
+                curChannel = channel;
                 UpdateInterfaceStats();
             }
         });
     }
 
     private void UpdateInterfaceStats() {
-        mClientInterface.setAverageValue(mStatsMgr.getAverageValue(mCurChannel));
-        mClientInterface.setLowestValue(mStatsMgr.getLowestValue(mCurChannel));
-        mClientInterface.setHighestValue(mStatsMgr.getHighestValue(mCurChannel));
+        clientInterface.setAverageValue(statsMgr.getAverageValue(curChannel));
+        clientInterface.setLowestValue(statsMgr.getLowestValue(curChannel));
+        clientInterface.setHighestValue(statsMgr.getHighestValue(curChannel));
     }
 
     public static void main(String[] args) {
-        sApp = new ClientApp();
-        sApp.init();
+        getInstance().init();
     }
 }

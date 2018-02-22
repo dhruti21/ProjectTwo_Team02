@@ -13,7 +13,7 @@ public class ClientAverageStats implements StatsInterface {
 		int num = 0;
 	}
 
-	private HashMap<Integer, InnerData> mHash = new HashMap<Integer, InnerData>();
+	private HashMap<Integer, InnerData> hash = new HashMap<Integer, InnerData>();
 
 	@Override
 	public void onReceiveData(int channel, int data) {
@@ -33,9 +33,9 @@ public class ClientAverageStats implements StatsInterface {
 	}
 
 	private InnerData getData(int channel) {
-		if (!mHash.containsKey(channel)) {
-            mHash.put(channel, new InnerData());
+		if (!hash.containsKey(channel)) {
+            hash.put(channel, new InnerData());
 		}
-		return mHash.get(channel);
+		return hash.get(channel);
 	}
 }
