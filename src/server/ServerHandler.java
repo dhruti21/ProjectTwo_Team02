@@ -112,6 +112,11 @@ public class ServerHandler {
                     currClient.setChannelNum( ((ClientChannelAmount) object).getNum() );
                 } else if( object instanceof StatusUpdate ){
                     currClient.setSendStatus( ( (StatusUpdate) object ).isRunning );
+                    if(( (StatusUpdate) object ).isRunning){
+                        System.out.println("Client Status: Running");
+                    } else {
+                        System.out.println("Client Status: Not Running");
+                    }
                 }
             }
         });

@@ -35,6 +35,7 @@ public class ClientApp {
     private ClientInterface clientInterface;
     private  ClientStatsManager statsMgr;
     private ClientHandler clientHandler;
+    private StatusUpdate statusUpdate;
     private int curChannel;
 
     public static ClientApp getInstance() {
@@ -60,6 +61,7 @@ public class ClientApp {
     }
 
     private void connectToServer() throws IOException {
+        statusUpdate = new StatusUpdate();
         clientConnection = new Client();
         clientConnection.start();
         clientConnection.connect(CONNECTION_TIMEOUT, IP, PORT);
@@ -96,9 +98,13 @@ public class ClientApp {
                         UpdateInterfaceStats();
                     }
                 }
-
             }
         });
+    }
+
+    public void sendClientStatus() {
+        statusUpdate.isRunning = clientHandler.getClientReceiveStatus();
+        clientConnection.sendTCP(statusUpdate);
     }
 
     private void addChannelChangeListener() {

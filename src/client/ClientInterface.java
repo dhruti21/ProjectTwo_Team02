@@ -11,6 +11,7 @@ package client;
  * @author Team 02
  */
 
+import network.StatusUpdate;
 import org.jfree.chart.ChartPanel;
 
 import java.awt.*;
@@ -130,16 +131,11 @@ public class ClientInterface {
                 //System.out.println("event" + e);
                 boolean currentState = clientHandler.getClientReceiveStatus();
                 clientHandler.setClientReceiveStatus(!currentState);
-                if(currentState){
-                    System.out.println("Client Stopped");
-                } else {
+                if(clientHandler.getClientReceiveStatus()){
                     System.out.println("Client Started");
+                } else {
+                    System.out.println("Client Stopped");
                 }
-               /* else if( object instanceof StatusUpdate ){
-                    currClient.setSendStatus( ( (StatusUpdate) object ).isRunning );
-                }
-                textArea.setText( textArea.getText() + String.valueOf( (char) i ) );
-                textArea.setText( textArea.getText() + String.valueOf( (char) i ) );*/
             }
 
         });
