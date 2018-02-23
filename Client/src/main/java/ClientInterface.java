@@ -240,7 +240,8 @@ public class ClientInterface {
         GraphPanel.setBounds(10, 11, 239, 200);
         panel.add(GraphPanel);
         clientPlotPanel = new ClientPlotPanel();
-        GraphPanel.add(clientPlotPanel.getChartPanel(), BorderLayout.CENTER);
+        GraphPanel.setLayout(new BorderLayout(0, 0));
+        GraphPanel.add(clientPlotPanel.getChartPanel());
         GraphPanel.validate();
 
         JPanel consolePanel = new JPanel();

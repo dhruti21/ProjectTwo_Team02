@@ -1,13 +1,14 @@
+import javafx.scene.chart.CategoryAxis;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
+import java.awt.*;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 /**
  * Class ClientPlotPanel
@@ -31,17 +32,33 @@ public class ClientPlotPanel {
 
         //Create Line Chart
         JFreeChart lineChart = ChartFactory.createLineChart(
-          "test",
-          "Time", "Value",
+          null,
+          null, null,
            dataset,
            PlotOrientation.VERTICAL,
            true,
-           true,
+           false,
            false
         );
 
+        //Setting line chart
+        CategoryPlot categoryPlot = lineChart.getCategoryPlot();
+        categoryPlot.setRangeGridlinesVisible(false);
+        categoryPlot.setBackgroundPaint(Color.BLACK);
+
+        //Removing axis
+        org.jfree.chart.axis.CategoryAxis domainAxis = categoryPlot.getDomainAxis();
+        domainAxis.setVisible(false);
+        org.jfree.chart.axis.ValueAxis rangeAxis = categoryPlot.getRangeAxis();
+        rangeAxis.setVisible(false);
+
         //save it into chartPanel
         chartPanel = new ChartPanel(lineChart);
+
+        //Setting size of chartPanel
+        //chartPanel.setPreferredSize(new Dimension(239, 200));
+        chartPanel.setBackground(Color.BLACK);
+
     }
 
     /**
