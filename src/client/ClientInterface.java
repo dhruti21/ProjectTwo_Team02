@@ -255,6 +255,10 @@ public class ClientInterface {
         lblNewLabel_1.setFont(new Font("Monospaced", Font.PLAIN, 13));
         lblNewLabel_1.setBounds(0, 0, 81, 15);
         consolePanel.add(lblNewLabel_1);
+        
+        JPanel consolePanelText = new ClientConsole();
+        consolePanelText.setBounds(10,15,400,60);
+        consolePanel.add(consolePanelText);
     }
 
     private void jComboBox1ActionPerformed(ActionEvent evt) {
