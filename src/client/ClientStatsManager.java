@@ -12,19 +12,19 @@ import java.util.ArrayList;
  */
 public class ClientStatsManager {
 
-    private ArrayList<StatsInterface> mStatsList;
-    private ClientHighestStats mHighest;
-    private ClientLowestStats mLowest;
-    private ClientAverageStats mAverage;
+    private ArrayList<StatsInterface> statsList;
+    private ClientHighestStats highest;
+    private ClientLowestStats lowest;
+    private ClientAverageStats average;
 
     public void init() {
-        mStatsList = new ArrayList<StatsInterface>();
-        mHighest = new ClientHighestStats();
-        mLowest = new ClientLowestStats();
-        mAverage = new ClientAverageStats();
-        mStatsList.add(mHighest);
-        mStatsList.add(mLowest);
-        mStatsList.add(mAverage);
+        statsList = new ArrayList<StatsInterface>();
+        highest = new ClientHighestStats();
+        lowest = new ClientLowestStats();
+        average = new ClientAverageStats();
+        statsList.add(highest);
+        statsList.add(lowest);
+        statsList.add(average);
     }
 
      /**
@@ -32,20 +32,20 @@ public class ClientStatsManager {
      * @param data the input data associated with the channel
     */
     public void onReceiveData(int channel, int data) {
-        for (StatsInterface i : mStatsList) {
+        for (StatsInterface i : statsList) {
             i.onReceiveData(channel, data);
         }
     }
 
     public int getHighestValue(int channel) {
-        return mHighest.getValue(channel);
+        return highest.getValue(channel);
     }
 
     public int getLowestValue(int channel) {
-        return mLowest.getValue(channel);
+        return lowest.getValue(channel);
     }
 
     public int getAverageValue(int channel) {
-        return mAverage.getValue(channel);
+        return average.getValue(channel);
     }
 }

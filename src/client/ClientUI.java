@@ -211,7 +211,7 @@ public class ClientUI {
         channelSelectionBox.setBounds(328, 133, 74, 38);
         channelSelectionBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                onChannelSwitch(evt);
             }
         });
 
@@ -268,7 +268,7 @@ public class ClientUI {
         consolePanel.add(consolePanelText);
     }
 
-    private void jComboBox1ActionPerformed(ActionEvent evt) {
+    private void onChannelSwitch(ActionEvent evt) {
         String chosenselection = (String) channelSelectionBox.getSelectedItem();
         int chosenchannel = Integer.parseInt(chosenselection);
         if (channelListerner != null) {

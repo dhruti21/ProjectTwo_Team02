@@ -18,15 +18,11 @@ import javax.swing.JTextArea;
  */
 public class ClientConsole extends JPanel {
 
-	/*
-	 * Not sure what this does - maybe rename to more meaningful variable --MD
-	 *
-	 */
-	private JTextArea textArea;
+	private JTextArea consoleContent;
 
     ClientConsole() {
-        textArea = new JTextArea();
-        JScrollPane scrollPane = new JScrollPane(textArea);
+        consoleContent = new JTextArea();
+        JScrollPane scrollPane = new JScrollPane(consoleContent);
         PrintStream ps = new PrintStream(new ClientOutputStream());
         System.setOut(ps);
         System.setErr(ps);
@@ -35,7 +31,7 @@ public class ClientConsole extends JPanel {
         this.setOpaque(false);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
-        textArea.setOpaque(false);
+        consoleContent.setOpaque(false);
         this.add(scrollPane, BorderLayout.CENTER);
     }
 
@@ -43,9 +39,9 @@ public class ClientConsole extends JPanel {
         @Override
         public void write(int i) throws IOException {
             // Append new console character and update the text area
-            textArea.setText(textArea.getText() + String.valueOf((char) i));
-            textArea.setCaretPosition(textArea.getDocument().getLength());
-            textArea.update(textArea.getGraphics());
+            consoleContent.setText(consoleContent.getText() + String.valueOf((char) i));
+            consoleContent.setCaretPosition(consoleContent.getDocument().getLength());
+            consoleContent.update(consoleContent.getGraphics());
         }
     }
 }

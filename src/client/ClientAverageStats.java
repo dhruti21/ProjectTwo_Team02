@@ -11,21 +11,15 @@ import java.util.HashMap;
  */
 public class ClientAverageStats implements StatsInterface {
     
-	/*
-	 * Not sure what this does - Rename class and its variables?
-	 * Also, maybe shouldn't have a private inner class
-	 * Or add comment? --MD
-	 *
-	 */
+	/** an innter class used to simplify data processing. 
+     * It records sumaration and number of input data
+     */
     private class InnerData {
         int sum = 0; // sumaration of received data
         int num = 0; // number of received data
     }
 
-    /*
-     * What is "hash"? Rename to what it holds --MD
-     */
-    private HashMap<Integer, InnerData> hash = new HashMap<Integer, InnerData>();
+    private HashMap<Integer, InnerData> dataContainer = new HashMap<Integer, InnerData>();
 
     @Override
     public void onReceiveData(int channel, int data) {
@@ -35,12 +29,12 @@ public class ClientAverageStats implements StatsInterface {
     }
 
     /**
-     * @param channel 	the channel index
+     * @param channelIndex 	the channel index
      * @return 			the average value of the channel
     */
     @Override
-    public int getValue(int channel) {
-        InnerData innerData = getInnerData(channel);
+    public int getValue(int channelIndex) {
+        InnerData innerData = getInnerData(channelIndex);
         if (innerData.num == 0) {
             return 0;
         } else {
@@ -48,15 +42,10 @@ public class ClientAverageStats implements StatsInterface {
         }
     }
 
-    /*
-	 * Not sure what this does - Rename class and its variables?
-	 * Or add comment? --MD
-	 *
-	 */
     private InnerData getInnerData(int channel) {
-        if (!hash.containsKey(channel)) {
-            hash.put(channel, new InnerData());
+        if (!dataContainer.containsKey(channel)) {
+            dataContainer.put(channel, new InnerData());
         }
-        return hash.get(channel);
+        return dataContainer.get(channel);
     }
 }

@@ -40,7 +40,7 @@ public class ClientApp {
     private boolean serverIsRunning; 
 
     public static void main(String[] args) {
-        getInstance().inIt();
+        getInstance().init();
     }
 
     public static ClientApp getInstance() {
@@ -50,16 +50,13 @@ public class ClientApp {
         return instance;
     }
 
-    /*
-     * Not sure what this method is doing - maybe rename or add comment?? --MD
-     */
-    public void inIt() {
+    public void init() {
         curChannel = 1;
         clientInterface = new ClientUI(DEFAULT_CHANNEL_NUM);
         clientHandler = ClientReceiveStatusHandler.getInstance();
         statsManager = new ClientStatsManager();
         statsManager.init();
-        addChannelChangeListener();
+        addChannelSwitchListener();
 
         try {
             connectToServer();
@@ -88,18 +85,16 @@ public class ClientApp {
         clientConnection.sendTCP(newConnection);
         clientConnection.addListener(new Listener() {
             public void received(Connection connection, Object object) {
-                onDataReceived(connection, object);
+                onDataReceived(object);
             }
         });
     }
 
     /**
-     * Need method description --MD
-     * 
-     * @param connection	Describe
-     * @param object		Describe, Rename object?
+     * This method will be called when the client receives data from the server
+     * @param object	received data from the server
      */
-    private void onDataReceived(Connection connection, Object object) {
+    private void onDataReceived(Object object) {
         if (clientHandler.getClientReceiveStatus()) {
             if (object instanceof Frequency) {
                 int frequency = ((Frequency) object).getFrequency();
@@ -109,11 +104,11 @@ public class ClientApp {
                 ArrayList<ChannelNumber> channelList = ((Channels) object).getChannelList();
                 for (ChannelNumber channelNum : channelList) {
                     int channel = channelNum.getChannel();
-                    int data = channelNum.getNumber();
-                    System.out.println("Channel: " + channel + ", Data: " + data);
+                    int number = channelNum.getNumber();
+                    System.out.println("Channel: " + channel + ", Data: " + number);
                     Date currentTime = Calendar.getInstance().getTime(); 
-                    clientInterface.getClientPlotPanel().addData(currentTime, channel, data);
-                    statsManager.onReceiveData(channel, data);
+                    clientInterface.getClientPlotPanel().addData(currentTime, channel, number);
+                    statsManager.onReceiveData(channel, number);
                 }
                 UpdateInterfaceStats();
             } else if (object instanceof StatusUpdate) {
@@ -127,10 +122,8 @@ public class ClientApp {
         }
     }
 
-    /**
-     * Rename method or describe?? --MD
-     */
-    private void addChannelChangeListener() {
+    /** Add listener for channel switch event from the client UI*/
+    private void addChannelSwitchListener() {
         clientInterface.setChannelSwitchListener(new ClientUI.ChannelSwitchListerner() {
             @Override
             public void onChannelSwitch(int channel) {
@@ -140,9 +133,7 @@ public class ClientApp {
         });
     }
 
-    /**
-     * Rename method or describe?? --MD
-     */
+    /** Update information on Client UI when new data is received */
     private void UpdateInterfaceStats() {
         clientInterface.setAverageValue(statsManager.getAverageValue(curChannel));
         clientInterface.setLowestValue(statsManager.getLowestValue(curChannel));

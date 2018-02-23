@@ -11,27 +11,24 @@ import java.util.HashMap;
  */
 public class ClientHighestStats implements StatsInterface {
 
-	/*
-     * What is "hash"? Rename to what it holds --MD
-     */
-    private HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> dataContainer = new HashMap<Integer, Integer>();
 
     @Override
     public void onReceiveData(int channel, int data) {
         int cur = getValue(channel);
         cur = Math.max(cur, data);
-        hash.put(channel, cur);
+        dataContainer.put(channel, cur);
     }
 
     /**
-     * @param channelNumber 
+     * @param channelIndex 
      * @return the highest value of the channel
     */
     @Override
-    public int getValue(int channelNumber) {
-        if (!hash.containsKey(channelNumber)) {
-            hash.put(channelNumber, Integer.MIN_VALUE);
+    public int getValue(int channelIndex) {
+        if (!dataContainer.containsKey(channelIndex)) {
+            dataContainer.put(channelIndex, Integer.MIN_VALUE);
         }
-        return hash.get(channelNumber);
+        return dataContainer.get(channelIndex);
     }
 }
