@@ -11,16 +11,13 @@ import java.util.HashMap;
  */
 public class ClientLowestStats implements StatsInterface {
     
-	/*
-     * What is "hash"? Rename to what it holds --MD
-     */
-    private HashMap<Integer, Integer> hash = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> dataContainer = new HashMap<Integer, Integer>();
 
     @Override
     public void onReceiveData(int channel, int data) {
         int cur = getValue(channel);
         cur = Math.min(cur, data);
-        hash.put(channel, cur);
+        dataContainer.put(channel, cur);
     }
 
     /**
@@ -29,9 +26,9 @@ public class ClientLowestStats implements StatsInterface {
     */
     @Override
     public int getValue(int channelNumber) {
-        if (!hash.containsKey(channelNumber)) {
-            hash.put(channelNumber, Integer.MAX_VALUE);
+        if (!dataContainer.containsKey(channelNumber)) {
+            dataContainer.put(channelNumber, Integer.MAX_VALUE);
         }
-        return hash.get(channelNumber);
+        return dataContainer.get(channelNumber);
     }
 }

@@ -11,10 +11,8 @@ package client;
 public interface StatsInterface {
 
     /**
-     * What is the channelInputData? Add more description --MD
-     * 
-     * @param channelNumber		
-     * @param channelInputData 	
+     * @param channelIndex		
+     * @param channelInputData 	integer received from a channel
     */
     public void onReceiveData(int channelIndex, int channelInputData);
 
