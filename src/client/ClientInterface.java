@@ -45,8 +45,7 @@ public class ClientInterface {
     private ClientReceiveStatusHandler clientHandler;
     private JFrame frame;
     private JPanel basePanel;
-    private JButton jButton1;
-    private JComboBox jComboBox1;
+    private JComboBox channelSelectionBox;
     private JLabel highestValueText;
     private JLabel frequencyTextInput;
     private JLabel lowestText;
@@ -200,22 +199,22 @@ public class ClientInterface {
         panelwithbutton.setBackground(LIGHT_BLUE);
         panelwithbutton.setBorder(BorderFactory.createEtchedBorder());
 
-        jComboBox1 = new JComboBox();
-        jComboBox1.setBackground(LIGHT_BLUE);
+        channelSelectionBox = new JComboBox();
+        channelSelectionBox.setBackground(LIGHT_BLUE);
         String[] strChannel = new String[numChannel];
         for (int i = 1; i <= numChannel; ++i) {
             strChannel[i - 1] = Integer.toString(i);
         }
-        jComboBox1.setModel(new DefaultComboBoxModel(strChannel));
-        jComboBox1.setOpaque(true);
-        jComboBox1.setBounds(328, 133, 74, 38);
-        jComboBox1.addActionListener(new ActionListener() {
+        channelSelectionBox.setModel(new DefaultComboBoxModel(strChannel));
+        channelSelectionBox.setOpaque(true);
+        channelSelectionBox.setBounds(328, 133, 74, 38);
+        channelSelectionBox.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        basePanel.add(jComboBox1);
+        basePanel.add(channelSelectionBox);
     }
 
     private void addStartStopButton() {
@@ -271,7 +270,7 @@ public class ClientInterface {
     }
 
     private void jComboBox1ActionPerformed(ActionEvent evt) {
-        String chosenselection = (String) jComboBox1.getSelectedItem();
+        String chosenselection = (String) channelSelectionBox.getSelectedItem();
         int chosenchannel = Integer.parseInt(chosenselection);
         if (channelListerner != null) {
             channelListerner.onChannelSwitch(chosenchannel);
