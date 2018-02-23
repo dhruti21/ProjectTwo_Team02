@@ -36,7 +36,7 @@ public class ServerApp {
 
     public static void main( String[] args ) {
         ServerInterface window = new ServerInterface();
-        window.getFrmServer().setVisible(true);
+        window.getserverFrame().setVisible(true);
         ServerApp.getServerInstance();
         ServerHandler handler = ServerHandler.getInstance();
         handler.start();
