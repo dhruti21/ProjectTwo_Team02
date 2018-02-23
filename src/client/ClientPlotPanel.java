@@ -1,3 +1,5 @@
+package client;
+
 import com.sun.javafx.charts.Legend;
 import javafx.scene.chart.CategoryAxis;
 import org.jfree.chart.ChartFactory;
