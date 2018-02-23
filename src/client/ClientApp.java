@@ -35,7 +35,9 @@ public class ClientApp {
     private ClientInterface clientInterface;
     private  ClientStatsManager statsMgr;
     private ClientHandler clientHandler;
+    private StatusUpdate statusUpdate;
     private int curChannel;
+    private boolean serverStatus;
 
     public static ClientApp getInstance() {
         if (instance == null) {
@@ -60,6 +62,8 @@ public class ClientApp {
     }
 
     private void connectToServer() throws IOException {
+        statusUpdate = new StatusUpdate();
+        serverStatus = statusUpdate.isRunning;
         clientConnection = new Client();
         clientConnection.start();
         clientConnection.connect(CONNECTION_TIMEOUT, IP, PORT);
@@ -75,7 +79,6 @@ public class ClientApp {
         clientConnection.addListener(new Listener() {
             public void received (Connection connection, Object object) {
                 if(clientHandler.getClientReceiveStatus()){
-                    System.out.println("Receiving");
                     if (object instanceof Frequency) {
                         int frequency = ((Frequency) object ).getFrequency();
                         System.out.println( "Frequency set to: " + frequency + " Hz" );
@@ -94,11 +97,22 @@ public class ClientApp {
                             statsMgr.onReceiveData(channel, data);
                         }
                         UpdateInterfaceStats();
+                    } else if(object instanceof StatusUpdate) {
+                        serverStatus = ((StatusUpdate) object).isRunning;
+                        if(serverStatus){
+                            System.out.println("Server started running");
+                        } else {
+                            System.out.println("Server stopped running");
+                        }
                     }
                 }
-
             }
         });
+    }
+
+    public void sendClientStatus() {
+        statusUpdate.isRunning = clientHandler.getClientReceiveStatus();
+        clientConnection.sendTCP(statusUpdate);
     }
 
     private void addChannelChangeListener() {

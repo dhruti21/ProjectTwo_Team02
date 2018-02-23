@@ -11,6 +11,7 @@ package client;
  * @author Team 02
  */
 
+import network.StatusUpdate;
 import org.jfree.chart.ChartPanel;
 
 import java.awt.*;
@@ -130,16 +131,11 @@ public class ClientInterface {
                 //System.out.println("event" + e);
                 boolean currentState = clientHandler.getClientReceiveStatus();
                 clientHandler.setClientReceiveStatus(!currentState);
-                if(currentState){
-                    System.out.println("Client Stopped");
+                if(clientHandler.getClientReceiveStatus()){
+                    System.out.println("Client Started Running");
                 } else {
-                    System.out.println("Client Started");
+                    System.out.println("Client Stopped Running");
                 }
-               /* else if( object instanceof StatusUpdate ){
-                    currClient.setSendStatus( ( (StatusUpdate) object ).isRunning );
-                }
-                textArea.setText( textArea.getText() + String.valueOf( (char) i ) );
-                textArea.setText( textArea.getText() + String.valueOf( (char) i ) );*/
             }
 
         });
@@ -255,6 +251,10 @@ public class ClientInterface {
         lblNewLabel_1.setFont(new Font("Monospaced", Font.PLAIN, 13));
         lblNewLabel_1.setBounds(0, 0, 81, 15);
         consolePanel.add(lblNewLabel_1);
+        
+        JPanel consolePanelText = new ClientConsole();
+        consolePanelText.setBounds(10,15,400,60);
+        consolePanel.add(consolePanelText);
     }
 
     private void jComboBox1ActionPerformed(ActionEvent evt) {
