@@ -33,6 +33,7 @@ javac -d . -cp ".:$ROOT_PATH/src:$LIB_PATH/kryo-4.0.1.jar:$LIB_PATH/kryonet-2.22
 
 jar cfm client.jar manifest_client.txt lib src client network
 rm -rf client
+rm -rf network
 
 echo
 echo "\033[0;32mCompile SUCCESS!"
