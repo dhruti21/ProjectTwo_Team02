@@ -15,7 +15,7 @@ Linux and Mac: `chmod +x compile.sh` then `./compile.sh `.
 
 Windows with IDE: Include all `.jar` file in folder `lib/` into External Libraries folder, then compile project using IDE.
 
-### 3. Run The JAR
+### 2. Run The JAR
 #### Server
 `java -jar server.jar `
 #### Client (Have to run server first)
