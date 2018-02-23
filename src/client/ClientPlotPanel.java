@@ -1,11 +1,11 @@
-package client;
-
+import com.sun.javafx.charts.Legend;
 import javafx.scene.chart.CategoryAxis;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.title.LegendTitle;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import java.awt.*;
@@ -34,19 +34,27 @@ public class ClientPlotPanel {
 
         //Create Line Chart
         JFreeChart lineChart = ChartFactory.createLineChart(
-          null,
-          null, null,
-           dataset,
-           PlotOrientation.VERTICAL,
-           true,
-           false,
-           false
+                null,
+                null, null,
+                dataset,
+                PlotOrientation.VERTICAL,
+                true,
+                false,
+                false
         );
 
         //Setting line chart
         CategoryPlot categoryPlot = lineChart.getCategoryPlot();
         categoryPlot.setRangeGridlinesVisible(false);
+        lineChart.setBackgroundPaint(Color.BLACK);
         categoryPlot.setBackgroundPaint(Color.BLACK);
+        categoryPlot.setOutlineVisible(false);
+
+        //Setting legend
+        LegendTitle legend = lineChart.getLegend();
+        legend.setBackgroundPaint(Color.BLACK);
+        legend.setItemPaint(Color.WHITE);
+        legend.setItemFont(new Font("Tahoma", Font.PLAIN, 11));
 
         //Removing axis
         org.jfree.chart.axis.CategoryAxis domainAxis = categoryPlot.getDomainAxis();
@@ -57,9 +65,8 @@ public class ClientPlotPanel {
         //save it into chartPanel
         chartPanel = new ChartPanel(lineChart);
 
-        //Setting size of chartPanel
+        //Setting chartPanel
         //chartPanel.setPreferredSize(new Dimension(239, 200));
-        chartPanel.setBackground(Color.BLACK);
 
     }
 
