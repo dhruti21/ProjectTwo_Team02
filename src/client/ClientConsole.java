@@ -17,8 +17,8 @@ import javax.swing.JTextArea;
  * @version 1.0
  */
 public class ClientConsole extends JPanel {
-
-	private JTextArea consoleContent;
+    
+    private JTextArea consoleContent;
 
     ClientConsole() {
         consoleContent = new JTextArea();
