@@ -18,7 +18,11 @@ import javax.swing.JTextArea;
  */
 public class ClientConsole extends JPanel {
 
-    private JTextArea textArea;
+	/*
+	 * Not sure what this does - maybe rename to more meaningful variable --MD
+	 *
+	 */
+	private JTextArea textArea;
 
     ClientConsole() {
         textArea = new JTextArea();

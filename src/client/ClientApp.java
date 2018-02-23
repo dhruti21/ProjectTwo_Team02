@@ -32,15 +32,15 @@ public class ClientApp {
     private static ClientApp instance;
 
     private Client clientConnection;
-    private ClientInterface clientInterface;
-    private ClientStatsManager statsMgr;
+    private ClientUI clientInterface;
+    private ClientStatsManager statsManager;
     private ClientReceiveStatusHandler clientHandler;
     private StatusUpdate statusUpdate;
     private int curChannel;
-    private boolean serverStatus; // is the server sending data
+    private boolean serverIsRunning; 
 
     public static void main(String[] args) {
-        getInstance().init();
+        getInstance().inIt();
     }
 
     public static ClientApp getInstance() {
@@ -50,12 +50,15 @@ public class ClientApp {
         return instance;
     }
 
-    public void init() {
+    /*
+     * Not sure what this method is doing - maybe rename or add comment?? --MD
+     */
+    public void inIt() {
         curChannel = 1;
-        clientInterface = new ClientInterface(DEFAULT_CHANNEL_NUM);
+        clientInterface = new ClientUI(DEFAULT_CHANNEL_NUM);
         clientHandler = ClientReceiveStatusHandler.getInstance();
-        statsMgr = new ClientStatsManager();
-        statsMgr.init();
+        statsManager = new ClientStatsManager();
+        statsManager.init();
         addChannelChangeListener();
 
         try {
@@ -90,6 +93,12 @@ public class ClientApp {
         });
     }
 
+    /**
+     * Need method description --MD
+     * 
+     * @param connection	Describe
+     * @param object		Describe, Rename object?
+     */
     private void onDataReceived(Connection connection, Object object) {
         if (clientHandler.getClientReceiveStatus()) {
             if (object instanceof Frequency) {
@@ -102,14 +111,14 @@ public class ClientApp {
                     int channel = channelNum.getChannel();
                     int data = channelNum.getNumber();
                     System.out.println("Channel: " + channel + ", Data: " + data);
-                    Date cal = Calendar.getInstance().getTime(); //Get current time
-                    clientInterface.getClientPlotPanel().addData(cal, channel, data);
-                    statsMgr.onReceiveData(channel, data);
+                    Date currentTime = Calendar.getInstance().getTime(); 
+                    clientInterface.getClientPlotPanel().addData(currentTime, channel, data);
+                    statsManager.onReceiveData(channel, data);
                 }
                 UpdateInterfaceStats();
             } else if (object instanceof StatusUpdate) {
-                serverStatus = ((StatusUpdate) object).isRunning;
-                if (serverStatus) {
+                serverIsRunning = ((StatusUpdate) object).isRunning;
+                if (serverIsRunning) {
                     System.out.println("Server started running");
                 } else {
                     System.out.println("Server stopped running");
@@ -118,8 +127,11 @@ public class ClientApp {
         }
     }
 
+    /**
+     * Rename method or describe?? --MD
+     */
     private void addChannelChangeListener() {
-        clientInterface.setChannelSwitchListener(new ClientInterface.ChannelSwitchListerner() {
+        clientInterface.setChannelSwitchListener(new ClientUI.ChannelSwitchListerner() {
             @Override
             public void onChannelSwitch(int channel) {
                 curChannel = channel;
@@ -128,9 +140,12 @@ public class ClientApp {
         });
     }
 
+    /**
+     * Rename method or describe?? --MD
+     */
     private void UpdateInterfaceStats() {
-        clientInterface.setAverageValue(statsMgr.getAverageValue(curChannel));
-        clientInterface.setLowestValue(statsMgr.getLowestValue(curChannel));
-        clientInterface.setHighestValue(statsMgr.getHighestValue(curChannel));
+        clientInterface.setAverageValue(statsManager.getAverageValue(curChannel));
+        clientInterface.setLowestValue(statsManager.getLowestValue(curChannel));
+        clientInterface.setHighestValue(statsManager.getHighestValue(curChannel));
     }
 }

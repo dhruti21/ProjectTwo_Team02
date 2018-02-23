@@ -28,10 +28,11 @@ import javax.swing.border.LineBorder;
  * @author Team 2
  * @version 1.0
  */
-public class ClientInterface {
+public class ClientUI {
 
-    /** an external user could implement this interface
-     *  and set it as a listerner to receive channel switch event
+    /**  
+     * an external user could implement this interface
+     *  and set it as a listener to receive channel switch event
      */
     public interface ChannelSwitchListerner {
         public void onChannelSwitch(int channel);
@@ -63,7 +64,7 @@ public class ClientInterface {
     /**
      * @param numChannel the number of channels need to switch
      */
-    public ClientInterface(int numChannel) {
+    public ClientUI(int numChannel) {
         createBaseFrameAndPanel();
         addAverageLabel();
         addChannelSwitch(numChannel);
@@ -185,7 +186,7 @@ public class ClientInterface {
         basePanel.add(frequencyTextInput);
     }
 
-    private void addChannelSwitch(int numChannel) {
+    private void addChannelSwitch(int channelNumber) {
         channelText = new JLabel(); 
         channelText.setText("Channel:");
         channelText.setBorder(BorderFactory.createEtchedBorder());
@@ -201,8 +202,8 @@ public class ClientInterface {
 
         channelSelectionBox = new JComboBox();
         channelSelectionBox.setBackground(LIGHT_BLUE);
-        String[] strChannel = new String[numChannel];
-        for (int i = 1; i <= numChannel; ++i) {
+        String[] strChannel = new String[channelNumber];
+        for (int i = 1; i <= channelNumber; ++i) {
             strChannel[i - 1] = Integer.toString(i);
         }
         channelSelectionBox.setModel(new DefaultComboBoxModel(strChannel));
@@ -225,7 +226,6 @@ public class ClientInterface {
         startStopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("event" + e);
                 boolean currentState = clientHandler.getClientReceiveStatus();
                 clientHandler.setClientReceiveStatus(!currentState);
                 if (clientHandler.getClientReceiveStatus()) {
@@ -234,7 +234,6 @@ public class ClientInterface {
                     System.out.println("Client Stopped Running");
                 }
             }
-
         });
         frame.getContentPane().add(startStopButton);
     }

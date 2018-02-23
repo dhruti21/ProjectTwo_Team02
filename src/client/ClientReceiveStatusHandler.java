@@ -1,13 +1,16 @@
 package client;
 
 /**
- * This class will notify the server when the client start/stop receive data. 
+ * This class will notify the server when the client starts/stops receiving data. 
  *
- * @author Team2
+ * @author Team 2
  * @version 1.0
  */
 public class ClientReceiveStatusHandler {
 
+	/**
+	 * not sure what handler means- rename?? --MD
+	 */
     private static ClientReceiveStatusHandler handler;
     private ClientApp clientApp;
     private volatile boolean clientReceiveStatus = true;

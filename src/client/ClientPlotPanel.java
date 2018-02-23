@@ -18,19 +18,20 @@ import java.util.Date;
  * Class ClientPlotPanel
  * Will maintain a plotting area using recieved data
  *
- * @author team02
+ * @author Team 2
+ * @version 1.0
  * @see javax.swing.JPanel
  */
 public class ClientPlotPanel {
 
     private ChartPanel chartPanel;
-    private DefaultCategoryDataset dataset;
+    private DefaultCategoryDataset dataSet;
 
     ClientPlotPanel() {
-        dataset = new DefaultCategoryDataset();
+        dataSet = new DefaultCategoryDataset();
 
         JFreeChart lineChart = ChartFactory.createLineChart(null, null, null, 
-                dataset, PlotOrientation.VERTICAL, true,
+                dataSet, PlotOrientation.VERTICAL, true,
                 false, false);
 
         //Setting line chart
@@ -58,14 +59,14 @@ public class ClientPlotPanel {
     /**
      * Every time we get data from server, should call this method to add channel data inside dataset.
      *
-     * @param Date date: time when client recieved data.
-     * @param channelNumber: channel number of current data.
-     * @param value: data value
+     * @param Date date 	time when client recieved data.
+     * @param channelNumber channel number of current data.
+     * @param value			data value
      * @see Date
      */
     public void addData(Date date, int channelNumber, int value) {
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
-        dataset.addValue(value, "Ch " + channelNumber, sdf.format(date));
+        dataSet.addValue(value, "Ch " + channelNumber, sdf.format(date));
     }
 
     public ChartPanel getChartPanel() {

@@ -11,11 +11,20 @@ import java.util.HashMap;
  */
 public class ClientAverageStats implements StatsInterface {
     
+	/*
+	 * Not sure what this does - Rename class and its variables?
+	 * Also, maybe shouldn't have a private inner class
+	 * Or add comment? --MD
+	 *
+	 */
     private class InnerData {
         int sum = 0; // sumaration of received data
         int num = 0; // number of received data
     }
 
+    /*
+     * What is "hash"? Rename to what it holds --MD
+     */
     private HashMap<Integer, InnerData> hash = new HashMap<Integer, InnerData>();
 
     @Override
@@ -26,8 +35,8 @@ public class ClientAverageStats implements StatsInterface {
     }
 
     /**
-     * @param channel the channel index
-     * @return the average value of the channel
+     * @param channel 	the channel index
+     * @return 			the average value of the channel
     */
     @Override
     public int getValue(int channel) {
@@ -39,6 +48,11 @@ public class ClientAverageStats implements StatsInterface {
         }
     }
 
+    /*
+	 * Not sure what this does - Rename class and its variables?
+	 * Or add comment? --MD
+	 *
+	 */
     private InnerData getInnerData(int channel) {
         if (!hash.containsKey(channel)) {
             hash.put(channel, new InnerData());

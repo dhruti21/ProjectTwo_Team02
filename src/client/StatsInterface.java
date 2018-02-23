@@ -11,15 +11,17 @@ package client;
 public interface StatsInterface {
 
     /**
-     * @param channel the channel index
-     * @param data the input data associated with the channel
+     * What is the channelInputData? Add more description --MD
+     * 
+     * @param channelNumber		
+     * @param channelInputData 	
     */
-    public void onReceiveData(int channel, int data);
+    public void onReceiveData(int channelIndex, int channelInputData);
 
     /**
-     * @param channel the channel index
-     * @return a stats information of a given channel. 
+     * @param channelIndex 
+     * @return stats for a given channel. 
      * It can be average, the highest, etc.
     */
-    public int getValue(int channel);
+    public int getValue(int channelIndex);
 }
