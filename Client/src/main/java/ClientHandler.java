@@ -7,7 +7,7 @@
 public class ClientHandler {
 
     private static ClientHandler handler;
-    private volatile boolean clientRecieveStatus = true;
+    private volatile boolean clientReceiveStatus = true;
 
     public static ClientHandler getInstance(){
         if( handler == null ){
@@ -16,12 +16,12 @@ public class ClientHandler {
         return handler;
     }
 
-    public boolean getClientSendStatus(){
-        return clientRecieveStatus;
+    public boolean getClientReceiveStatus(){
+        return clientReceiveStatus;
     }
 
-    public void setClientSendStatus( boolean sendStatus ){
+    public void setClientReceiveStatus( boolean sendStatus ){
             //TODO: need to do logic for start and stop of server
-        clientRecieveStatus = sendStatus;
+        clientReceiveStatus = sendStatus;
     }
 }

@@ -35,6 +35,7 @@ public class ClientInterface {
     public final Color STATUS_OK = Color.GREEN;
     public final Color STATUS_NOT_OK = Color.RED;
     private ClientStatsManager handler;
+    private ClientHandler clientHandler;
     private JFrame fromClient;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
@@ -88,6 +89,7 @@ public class ClientInterface {
 
     private void initcomponents(int numChannel) {
 
+        clientHandler = ClientHandler.getInstance();
         fromClient = new JFrame();
         fromClient.setTitle("Client");
         fromClient.setBounds(100, 100, 448, 342);
@@ -125,8 +127,21 @@ public class ClientInterface {
         startStopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //System.out.println("event" + e);
+                boolean currentState = clientHandler.getClientReceiveStatus();
+                clientHandler.setClientReceiveStatus(!currentState);
+                if(currentState){
+                    System.out.println("Client Stopped");
+                } else {
+                    System.out.println("Client Started");
+                }
+               /* else if( object instanceof StatusUpdate ){
+                    currClient.setSendStatus( ( (StatusUpdate) object ).isRunning );
+                }
+                textArea.setText( textArea.getText() + String.valueOf( (char) i ) );
+                textArea.setText( textArea.getText() + String.valueOf( (char) i ) );*/
             }
+
         });
 
         fromClient.getContentPane().add(startStopButton);

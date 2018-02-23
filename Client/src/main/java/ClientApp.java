@@ -30,6 +30,7 @@ public class ClientApp {
     private  Client clientConnection;
     private ClientInterface clientInterface;
     private  ClientStatsManager statsMgr;
+    private ClientHandler clientHandler;
     private int curChannel;
 
     public static ClientApp getInstance() {
@@ -44,6 +45,7 @@ public class ClientApp {
             curChannel = 1;
             clientInterface = new ClientInterface(DEFAULT_CHANNEL_NUM);
             clientInterface.getFromClient().setVisible(true);
+            clientHandler = ClientHandler.getInstance();
             addChannelChangeListener();
             connectToServer();
         } catch (IOException e) {
@@ -68,25 +70,29 @@ public class ClientApp {
 
         clientConnection.addListener(new Listener() {
             public void received (Connection connection, Object object) {
-                if (object instanceof Frequency) {
-                    int frequency = ((Frequency) object ).getFrequency();
-                    System.out.println( "Frequency set to: " + frequency + " Hz" );
-                    clientInterface.setFrequency(frequency);
+                if(clientHandler.getClientReceiveStatus()){
+                    System.out.println("Receiving");
+                    if (object instanceof Frequency) {
+                        int frequency = ((Frequency) object ).getFrequency();
+                        System.out.println( "Frequency set to: " + frequency + " Hz" );
+                        clientInterface.setFrequency(frequency);
 
-                } else if( object instanceof Channels ){
-                    ArrayList<ChannelNumber> channelList = ( (Channels) object ).getChannelList();
-                    for( ChannelNumber channelNum : channelList ){
-                        int channel = channelNum.getChannel();
-                        int data = channelNum.getNumber();
-                        System.out.println( "Channel: " + channel + ", Data: " + data );
-                        //Get current time
-                        Date cal = Calendar.getInstance().getTime();
-                        //Add data into plot dataset
-                        clientInterface.getClientPlotPanel().addData(cal, channel, data);
-                        statsMgr.onReceiveData(channel, data);
+                    } else if( object instanceof Channels ){
+                        ArrayList<ChannelNumber> channelList = ( (Channels) object ).getChannelList();
+                        for( ChannelNumber channelNum : channelList ){
+                            int channel = channelNum.getChannel();
+                            int data = channelNum.getNumber();
+                            System.out.println( "Channel: " + channel + ", Data: " + data );
+                            //Get current time
+                            Date cal = Calendar.getInstance().getTime();
+                            //Add data into plot dataset
+                            clientInterface.getClientPlotPanel().addData(cal, channel, data);
+                            statsMgr.onReceiveData(channel, data);
+                        }
+                        UpdateInterfaceStats();
                     }
-                    UpdateInterfaceStats();
                 }
+
             }
         });
     }
