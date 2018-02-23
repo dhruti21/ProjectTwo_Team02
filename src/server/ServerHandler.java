@@ -52,6 +52,9 @@ public class ServerHandler {
             start();
         }
         serverSendStatus = sendStatus;
+        StatusUpdate statusUpdate = new StatusUpdate();
+        statusUpdate.isRunning = sendStatus;
+        ServerApp.getServerInstance().sendToAllTCP(statusUpdate);
     }
 
     public void setFreqInterval(int freqInterval) {

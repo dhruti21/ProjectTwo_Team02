@@ -132,9 +132,9 @@ public class ClientInterface {
                 boolean currentState = clientHandler.getClientReceiveStatus();
                 clientHandler.setClientReceiveStatus(!currentState);
                 if(clientHandler.getClientReceiveStatus()){
-                    System.out.println("Client Started");
+                    System.out.println("Client Started Running");
                 } else {
-                    System.out.println("Client Stopped");
+                    System.out.println("Client Stopped Running");
                 }
             }
 
