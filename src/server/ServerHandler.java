@@ -116,9 +116,9 @@ public class ServerHandler {
                 } else if( object instanceof StatusUpdate ){
                     currClient.setSendStatus( ( (StatusUpdate) object ).isRunning );
                     if(( (StatusUpdate) object ).isRunning){
-                        System.out.println("Client Status: Running");
+                        System.out.println("Client ID:"+ connection.getID() +" Status Running");
                     } else {
-                        System.out.println("Client Status: Not Running");
+                        System.out.println("Client ID:"+ connection.getID() +" Status: Not Running");
                     }
                 }
             }
