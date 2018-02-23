@@ -2,7 +2,6 @@
 *.class
 *.war
 *.ear
-*.jar
 
 # Eclipse
 .project
