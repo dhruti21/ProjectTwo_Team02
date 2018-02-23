@@ -9,6 +9,7 @@ package client;
 public class ClientHandler {
 
     private static ClientHandler handler;
+    private ClientApp clientApp;
     private volatile boolean clientReceiveStatus = true;
 
     public static ClientHandler getInstance(){
@@ -23,7 +24,8 @@ public class ClientHandler {
     }
 
     public void setClientReceiveStatus( boolean sendStatus ){
-            //TODO: need to do logic for start and stop of server
         clientReceiveStatus = sendStatus;
+        clientApp = ClientApp.getInstance();
+        clientApp.sendClientStatus();
     }
 }
