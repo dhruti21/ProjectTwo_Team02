@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Receive data from the server and calculate the highest 
  * value of each channel
- *
+ * 
  * @author Team 2
  * @version 1.0
  */
