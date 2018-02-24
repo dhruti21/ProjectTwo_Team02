@@ -2,6 +2,9 @@
 
 ## For People want to Run (Grader)
 
+##Team-members
+- Desai Dhruti ([@dhruti21](https://github.com/dhruti21) | dadesai2 | dadesai2@asu.edu)
+
 ### Run Server
 `java -jar server.jar `
 ### Run Client (Have to run server first)
