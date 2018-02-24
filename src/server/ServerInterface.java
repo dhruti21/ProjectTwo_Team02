@@ -6,7 +6,6 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 
@@ -36,26 +35,17 @@ public class ServerInterface {
 	private Color statusColor = STATUS_OK;
 
     /**
-	 * Create the application.
+	 * Create the server UI
 	 */
 	public ServerInterface() {
 		initialize();
 	}
 
+    /**
+     * @return The server JFRame containing the server UI
+     */
     public JFrame getserverFrame() {
         return serverFrame;
-    }
-
-    public JTextField getFreqTextField() {
-        return freqTextField;
-    }
-
-    public JTextField getHighTextField() {
-        return highTextField;
-    }
-
-    public JTextField getLowTextField() {
-        return lowTextField;
     }
 
     /**
@@ -72,11 +62,11 @@ public class ServerInterface {
 		//Color lightblue = new Color(153,180,209);
 		//Border border = BorderFactory.createLineBorder(lightblue);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(220, 220, 220));
-		panel.setBounds(10, 41, 412, 196);
-		serverFrame.getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel parentPanel = new JPanel();
+		parentPanel.setBackground(new Color(220, 220, 220));
+		parentPanel.setBounds(10, 41, 412, 196);
+		serverFrame.getContentPane().add(parentPanel);
+		parentPanel.setLayout(null);
 
         statusPanel = new JPanel(){
 			@Override
@@ -85,8 +75,10 @@ public class ServerInterface {
                 Graphics2D g2d = (Graphics2D)g;
                 Ellipse2D.Double statusCircle =
                         new Ellipse2D.Double(
-                                ( statusPanel.getWidth() / 2 ) - ( STATUS_SIZE / 2 ),
-                                ( statusPanel.getHeight() / 2 ) - ( STATUS_SIZE / 2 ),
+                                ( statusPanel.getWidth() / 2 ) -
+                                        ( STATUS_SIZE / 2 ),
+                                ( statusPanel.getHeight() / 2 ) -
+                                        ( STATUS_SIZE / 2 ),
                                 STATUS_SIZE, STATUS_SIZE );
                 g2d.setColor( statusColor );
                 g2d.fill( statusCircle );
@@ -95,7 +87,7 @@ public class ServerInterface {
         statusPanel.setBorder(new LineBorder(SystemColor.activeCaption));
         statusPanel.setBackground(Color.PINK);
         statusPanel.setBounds(10, 11, 232, 163);
-        panel.add(statusPanel);
+        parentPanel.add(statusPanel);
 		
 		freqTextField = new JTextField();
 		freqTextField.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -103,8 +95,8 @@ public class ServerInterface {
 		freqTextField.setBounds(328, 92, 74, 38);
 		freqTextField.setColumns(10);
 		freqTextField.addActionListener( textBoxAction() );
-		freqTextField.setText( String.valueOf( handler.getFreq() ) );
-		panel.add(freqTextField);
+		freqTextField.setText( String.valueOf( handler.getFrequency() ) );
+		parentPanel.add(freqTextField);
 
 		String[] comboOptions = {
                 FREQ_SECONDS_OPTION,
@@ -132,7 +124,7 @@ public class ServerInterface {
             }
         });
         freqCombo.setFont(new Font("Courier New", Font.PLAIN, 11));
-        panel.add( freqCombo );
+        parentPanel.add( freqCombo );
 
 
         lowTextField = new JTextField();
@@ -141,8 +133,8 @@ public class ServerInterface {
 		lowTextField.setBounds(328, 52, 74, 38);
 		lowTextField.setColumns(10);
 		lowTextField.addActionListener( textBoxAction() );
-        lowTextField.setText( String.valueOf( handler.getMin() ) );
-        panel.add(lowTextField);
+        lowTextField.setText( String.valueOf( handler.getMinValue() ) );
+        parentPanel.add(lowTextField);
 		
 		highTextField = new JTextField();
 		highTextField.setFont(new Font("Courier New", Font.PLAIN, 13));
@@ -150,32 +142,38 @@ public class ServerInterface {
 		highTextField.setBounds(328, 11, 74, 38);
 		highTextField.setColumns(10);
 		highTextField.addActionListener( textBoxAction() );
-        highTextField.setText( String.valueOf( handler.getMax() ) );
-        panel.add(highTextField);
+        highTextField.setText( String.valueOf( handler.getMaxValue() ) );
+        parentPanel.add(highTextField);
 
-        JLabel txtrHighestValue = new JLabel("<HTML> Highest <br> value: </HTML>");
+        JLabel txtrHighestValue = new JLabel(
+                "<HTML> Highest <br> value: </HTML>");
         txtrHighestValue.setForeground(SystemColor.desktop);
         txtrHighestValue.setFont(new Font("Courier New", Font.PLAIN, 13));
 		txtrHighestValue.setBackground(new Color(173, 216, 230));
-		txtrHighestValue.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		txtrHighestValue.setBorder(new EtchedBorder(
+		        EtchedBorder.LOWERED, null, null));
 		txtrHighestValue.setBounds(245, 11, 80, 38);
-		panel.add(txtrHighestValue);
+		parentPanel.add(txtrHighestValue);
 
-        JLabel txtrLowestValue = new JLabel("<HTML>Lowest <br> value:</HTML>");
+        JLabel txtrLowestValue =
+                new JLabel("<HTML>Lowest <br> value:</HTML>");
         txtrLowestValue.setBackground(Color.PINK);
         
         txtrLowestValue.setFont(new Font("Courier New", Font.PLAIN, 13));
         txtrLowestValue.setOpaque(true);
-		txtrLowestValue.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		txtrLowestValue.setBorder(new EtchedBorder(
+		        EtchedBorder.LOWERED, null, null));
 		txtrLowestValue.setBounds(245, 52, 80, 38);
-		panel.add(txtrLowestValue);
+		parentPanel.add(txtrLowestValue);
 
-        JLabel txtrFrequency = new JLabel("<HTML>Frequency <br> (Hz):</HTML>");
+        JLabel txtrFrequency =
+                new JLabel("<HTML>Frequency <br> (Hz):</HTML>");
         txtrFrequency.setFont(new Font("Courier New", Font.PLAIN, 13));
 		txtrFrequency.setBackground(SystemColor.controlHighlight);
-		txtrFrequency.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		txtrFrequency.setBorder(new EtchedBorder(
+		        EtchedBorder.LOWERED, null, null));
 		txtrFrequency.setBounds(245, 92, 80, 38);
-		panel.add(txtrFrequency);
+		parentPanel.add(txtrFrequency);
 		
 		JPanel consolePanel = new JPanel();
         consolePanel.setBorder(new LineBorder(SystemColor.activeCaption));
@@ -184,10 +182,10 @@ public class ServerInterface {
 		serverFrame.getContentPane().add(consolePanel);
         consolePanel.setLayout(null);
 
-        JLabel lblNewLabel_1 = new JLabel(" Console:");
-		lblNewLabel_1.setFont(new Font("Courier New", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(0, 0, 81, 15);
-        consolePanel.add(lblNewLabel_1);
+        JLabel consoleLabel = new JLabel(" Console:");
+		consoleLabel.setFont(new Font("Courier New", Font.PLAIN, 13));
+		consoleLabel.setBounds(0, 0, 81, 15);
+        consolePanel.add(consoleLabel);
 		
 		final JButton startStopButton = new JButton( "Start / Stop" );
 		startStopButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -209,45 +207,56 @@ public class ServerInterface {
 		serverFrame.getContentPane().add(startStopButton);
 	}
 
-	// Action to be triggered on enter press
+    /**
+     * @return Action to be triggered on a press of the enter key for
+     * frequency, lowest value and highest value
+     */
 	private Action textBoxAction(){
 	    return new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                String text = "";
-                int val = 0;
+                String inputText = "";
+                int inputVal = 0;
                 try {
                     if ( e.getSource().equals( freqTextField ) ) {
-                        text = freqTextField.getText();
-                        val = Integer.parseInt( text );
-                        if( val > 0 ) {
-                            handler.setFreq( val );
-                            System.out.println( "Frequency set to: " + text );
+                        inputText = freqTextField.getText();
+                        inputVal = Integer.parseInt( inputText );
+                        if( inputVal > 0 ) {
+                            handler.setFrequency( inputVal );
+                            System.out.println(
+                                    "Frequency set to: " + inputText );
                         } else {
-                            System.out.println( "Frequency must be greater than zero" );
+                            System.out.println(
+                                    "Frequency must be greater than zero" );
                         }
                     } else if ( e.getSource().equals( lowTextField ) ) {
-                        text = lowTextField.getText();
-                        val = Integer.parseInt( text );
-                        if( val <= handler.getMax() ) {
-                            handler.setMin( val );
-                            System.out.println( "Lowest value set to: " + text );
+                        inputText = lowTextField.getText();
+                        inputVal = Integer.parseInt( inputText );
+                        if( inputVal <= handler.getMaxValue() ) {
+                            handler.setMinValue( inputVal );
+                            System.out.println(
+                                    "Lowest value set to: " + inputText );
                         } else {
-                            System.out.println( "Lowest value must be less than the max" );
+                            System.out.println(
+                                    "Lowest value must be less than the max" );
                         }
                     } else if ( e.getSource().equals( highTextField ) ) {
-                        text = highTextField.getText();
-                        val = Integer.parseInt( text );
-                        if( val >= handler.getMin() ) {
-                            handler.setMax( val );
-                            System.out.println( "Highest value set to: " + text );
+                        inputText = highTextField.getText();
+                        inputVal = Integer.parseInt( inputText );
+                        if( inputVal >= handler.getMinValue() ) {
+                            handler.setMaxValue( inputVal );
+                            System.out.println(
+                                    "Highest value set to: " + inputText );
                         } else {
-                            System.out.println( "Highest value must be greater than the max" );
+                            System.out.println(
+                                    "Highest value must be " +
+                                    "greater than the max" );
                         }
                     }
                 } catch( NumberFormatException err ){
-                    System.out.println( "Invalid number entered: " + text );
+                    System.out.println(
+                            "Invalid number entered: " + inputText );
                 }
             }
         };
