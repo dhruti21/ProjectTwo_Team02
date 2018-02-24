@@ -1,5 +1,9 @@
 # ProjectTwo_Team02
 
+## Team members
+>
+- Dhruti Desai ([@dhruti21](https://github.com/dhruti21) | dadesai2 | dadesai2@asu.edu)
+
 ## For People want to Run (Grader)
 
 ### Run Server
