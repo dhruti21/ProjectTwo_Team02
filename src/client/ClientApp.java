@@ -91,7 +91,7 @@ public class ClientApp {
     }
 
     /**
-     * This method will be called when the client receives data from the server
+     * Called when the client receives data from the server
      * @param object	received data from the server
      */
     private void onDataReceived(Object object) {
