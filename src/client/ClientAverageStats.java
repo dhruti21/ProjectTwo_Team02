@@ -30,7 +30,7 @@ public class ClientAverageStats implements StatsInterface {
 
     /**
      * @param channelIndex 	the channel index
-     * @return 			the average value of the channel
+     * @return 			    the average value of the channel
     */
     @Override
     public int getValue(int channelIndex) {
