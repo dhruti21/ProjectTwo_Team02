@@ -19,7 +19,8 @@ public class ClientAverageStats implements StatsInterface {
         int num = 0; // number of received data
     }
 
-    private HashMap<Integer, InnerData> dataContainer = new HashMap<Integer, InnerData>();
+    private HashMap<Integer, InnerData> dataContainer = 
+        new HashMap<Integer, InnerData>();
 
     @Override
     public void onReceiveData(int channel, int data) {

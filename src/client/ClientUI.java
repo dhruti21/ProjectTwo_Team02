@@ -21,7 +21,8 @@ import javax.swing.border.LineBorder;
 
 /**
  * The client interface provides following functionalities
- * 1. show stats information (average, lowest, etc) of the received data from server
+ * 1. show stats information (average, lowest, etc) of the 
+ *  received data from server
  * 2. plot the data in a graph
  * 3. a console shows system output
  *
@@ -269,7 +270,8 @@ public class ClientUI {
     }
 
     private void onChannelSwitch(ActionEvent evt) {
-        String chosenselection = (String) channelSelectionBox.getSelectedItem();
+        String chosenselection = (String) channelSelectionBox
+            .getSelectedItem();
         int chosenchannel = Integer.parseInt(chosenselection);
         if (channelListerner != null) {
             channelListerner.onChannelSwitch(chosenchannel);

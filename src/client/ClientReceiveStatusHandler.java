@@ -1,7 +1,8 @@
 package client;
 
 /**
- * This class will notify the server when the client starts/stops receiving data. 
+ * This class will notify the server when the client 
+ * starts/stops receiving data. 
  *
  * @author Team 2
  * @version 1.0
@@ -19,10 +20,16 @@ public class ClientReceiveStatusHandler {
         return handler;
     }
 
+    /**
+     * @return is the client receiving data
+    */
     public boolean getClientReceiveStatus() {
         return clientReceiveStatus;
     }
 
+    /**
+     * @param sendStatus is client receiving data
+    */
     public void setClientReceiveStatus(boolean sendStatus) {
         clientReceiveStatus = sendStatus;
         clientApp = ClientApp.getInstance();

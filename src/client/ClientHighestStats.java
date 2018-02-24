@@ -11,7 +11,8 @@ import java.util.HashMap;
  */
 public class ClientHighestStats implements StatsInterface {
 
-    private HashMap<Integer, Integer> dataContainer = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> dataContainer =
+        new HashMap<Integer, Integer>();
 
     @Override
     public void onReceiveData(int channel, int data) {

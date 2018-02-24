@@ -101,13 +101,16 @@ public class ClientApp {
                 System.out.println("Frequency set to: " + frequency + " Hz");
                 clientInterface.setFrequency(frequency);
             } else if (object instanceof Channels) {
-                ArrayList<ChannelNumber> channelList = ((Channels) object).getChannelList();
+                ArrayList<ChannelNumber> channelList = 
+                    ((Channels) object).getChannelList();
                 for (ChannelNumber channelNum : channelList) {
                     int channel = channelNum.getChannel();
                     int number = channelNum.getNumber();
-                    System.out.println("Channel: " + channel + ", Data: " + number);
-                    Date currentTime = Calendar.getInstance().getTime(); 
-                    clientInterface.getClientPlotPanel().addData(currentTime, channel, number);
+                    System.out.println("Channel: " + channel + 
+                        ", Data: " + number);
+                    Date currentTime = Calendar.getInstance().getTime();
+                    clientInterface.getClientPlotPanel().
+                        addData(currentTime, channel, number);
                     statsManager.onReceiveData(channel, number);
                 }
                 UpdateInterfaceStats();
@@ -124,7 +127,8 @@ public class ClientApp {
 
     /** Add listener for channel switch event from the client UI*/
     private void addChannelSwitchListener() {
-        clientInterface.setChannelSwitchListener(new ClientUI.ChannelSwitchListerner() {
+        clientInterface.setChannelSwitchListener(
+            new ClientUI.ChannelSwitchListerner() {
             @Override
             public void onChannelSwitch(int channel) {
                 curChannel = channel;
@@ -135,8 +139,11 @@ public class ClientApp {
 
     /** Update information on Client UI when new data is received */
     private void UpdateInterfaceStats() {
-        clientInterface.setAverageValue(statsManager.getAverageValue(curChannel));
-        clientInterface.setLowestValue(statsManager.getLowestValue(curChannel));
-        clientInterface.setHighestValue(statsManager.getHighestValue(curChannel));
+        clientInterface.setAverageValue(statsManager
+            .getAverageValue(curChannel));
+        clientInterface.setLowestValue(statsManager
+            .getLowestValue(curChannel));
+        clientInterface.setHighestValue(statsManager
+            .getHighestValue(curChannel));
     }
 }

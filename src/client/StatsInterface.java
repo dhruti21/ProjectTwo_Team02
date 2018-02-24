@@ -11,7 +11,10 @@ package client;
 public interface StatsInterface {
 
     /**
-     * @param channelIndex		
+     * receive data from the server and produce values like
+     * average, the highest, etc.
+     * 
+     * @param channelIndex
      * @param channelInputData 	integer received from a channel
     */
     public void onReceiveData(int channelIndex, int channelInputData);

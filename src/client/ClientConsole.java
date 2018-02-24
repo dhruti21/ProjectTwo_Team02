@@ -39,8 +39,10 @@ public class ClientConsole extends JPanel {
         @Override
         public void write(int i) throws IOException {
             // Append new console character and update the text area
-            consoleContent.setText(consoleContent.getText() + String.valueOf((char) i));
-            consoleContent.setCaretPosition(consoleContent.getDocument().getLength());
+            consoleContent.setText(consoleContent.getText() 
+                + String.valueOf((char) i));
+            consoleContent.setCaretPosition(consoleContent
+                .getDocument().getLength());
             consoleContent.update(consoleContent.getGraphics());
         }
     }

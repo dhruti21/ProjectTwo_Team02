@@ -30,7 +30,7 @@ public class ClientPlotPanel {
     ClientPlotPanel() {
         dataSet = new DefaultCategoryDataset();
 
-        JFreeChart lineChart = ChartFactory.createLineChart(null, null, null, 
+        JFreeChart lineChart = ChartFactory.createLineChart(null, null, null,
                 dataSet, PlotOrientation.VERTICAL, true,
                 false, false);
 
@@ -48,7 +48,8 @@ public class ClientPlotPanel {
         legend.setItemFont(new Font("Tahoma", Font.PLAIN, 11));
 
         //Removing axis
-        org.jfree.chart.axis.CategoryAxis domainAxis = categoryPlot.getDomainAxis();
+        org.jfree.chart.axis.CategoryAxis domainAxis =
+            categoryPlot.getDomainAxis();
         domainAxis.setVisible(false);
         org.jfree.chart.axis.ValueAxis rangeAxis = categoryPlot.getRangeAxis();
         rangeAxis.setVisible(false);
@@ -57,7 +58,8 @@ public class ClientPlotPanel {
     }
 
     /**
-     * call this method to add channel data inside dataset when the client receives data
+     * call this method to add channel data inside dataset when the 
+     * client receives data
      *
      * @param Date date 	time when client recieved data.
      * @param channelNumber channel number of current data.

@@ -27,7 +27,9 @@ public class ClientStatsManager {
         statsList.add(average);
     }
 
-     /**
+    /**
+     * call this method when the client receives data from the server 
+     * 
      * @param channel the channel index
      * @param data the input data associated with the channel
     */
