@@ -17,7 +17,7 @@ public class ClientStatsManager {
     private ClientLowestStats lowest;
     private ClientAverageStats average;
 
-    public void init() {
+    public void initialize() {
         statsList = new ArrayList<StatsInterface>();
         highest = new ClientHighestStats();
         lowest = new ClientLowestStats();

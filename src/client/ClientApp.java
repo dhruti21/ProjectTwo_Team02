@@ -40,7 +40,7 @@ public class ClientApp {
     private boolean serverIsRunning; 
 
     public static void main(String[] args) {
-        getInstance().init();
+        getInstance().initialize();
     }
 
     public static ClientApp getInstance() {
@@ -50,12 +50,12 @@ public class ClientApp {
         return instance;
     }
 
-    public void init() {
+    public void initialize() {
         curChannel = 1;
         clientInterface = new ClientUI(DEFAULT_CHANNEL_NUM);
         clientHandler = ClientReceiveStatusHandler.getInstance();
         statsManager = new ClientStatsManager();
-        statsManager.init();
+        statsManager.initialize();
         addChannelSwitchListener();
 
         try {
