@@ -57,7 +57,7 @@ public class ClientPlotPanel {
     }
 
     /**
-     * Every time we get data from server, should call this method to add channel data inside dataset.
+     * call this method to add channel data inside dataset when the client receives data
      *
      * @param Date date 	time when client recieved data.
      * @param channelNumber channel number of current data.
