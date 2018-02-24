@@ -8,9 +8,6 @@ package client;
  */
 public class ClientReceiveStatusHandler {
 
-	/**
-	 * not sure what handler means- rename?? --MD
-	 */
     private static ClientReceiveStatusHandler handler;
     private ClientApp clientApp;
     private volatile boolean clientReceiveStatus = true;
